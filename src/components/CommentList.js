@@ -12,29 +12,21 @@ class CommentList extends Component {
 
     render() {
         const commentMore = <a href = "#" onClick = {this.handleClick}>{ this.state.isOpen ? 'hide' : 'show' }</a>
+
+        let commentItem = null
         if(this.state.isOpen){
             const { comments } = this.props
-            const commentItem = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
-
-            return (
-                <div>
-                    <p>
-                        {commentMore}
-                    </p>
-                    <ul>
-                        {commentItem}
-                    </ul>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <p>
-                        {commentMore}
-                    </p>
-                </div>
-            )
+            commentItem = <ul>{comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)}</ul>
         }
+
+        return (
+            <div>
+                <p>
+                    {commentMore}
+                </p>
+                {commentItem}
+            </div>
+        )
     }
 
     handleClick = ev => {
