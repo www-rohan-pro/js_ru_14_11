@@ -16,6 +16,7 @@ class CommentList extends Component {
         let commentItem = null
         if(this.state.isOpen){
             const { comments } = this.props
+            //тут ок, но вообще я б не советовал писать код в JSX - быстро становится нечитабельным
             commentItem = <ul>{comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)}</ul>
         }
 
