@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CommentList from './CommentList'
 
 class Article extends Component {
 
@@ -12,7 +13,10 @@ class Article extends Component {
 
     render() {
         const { article } = this.props
-        const body = this.state.isOpen ? <p>{article.text}</p> : null
+        const text = <p>{article.text}</p>
+        const comments = 'comments' in article ? <CommentList comments = {article.comments} /> : null
+        const body = this.state.isOpen ? <div>{text}{comments}</div> : null
+
         return (
             <section>
                 <h3 onClick = {this.handleClick}>{article.title}</h3>
