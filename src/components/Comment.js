@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 
 function Comment(props) {
-    const { title, text, user } = props.comment
+    const comment = props.comment
+    const { title, text, user } = comment
     const header = title && <h4>{title}</h4>
     return (
         <div>
@@ -12,7 +13,11 @@ function Comment(props) {
 }
 
 Comment.propTypes = {
-    comment: PropTypes.object.isRequired
+    comment: PropTypes.shape({
+        title: PropTypes.string,
+        text: PropTypes.string.isRequired,
+        user: PropTypes.string.isRequired
+    }).isRequired
 }
 
 export default Comment

@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
 
 function Article(props) {
-    const { article, toggleOpen } = props
+    const { article, openArticle } = props
     return (
         <section>
-            <h3 onClick = {toggleOpen}>{article.title}</h3>
+            <h3 onClick = {openArticle}>{article.title}</h3>
             {getBody(props)}
         </section>
     )
