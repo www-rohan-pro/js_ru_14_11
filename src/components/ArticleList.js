@@ -1,6 +1,7 @@
 import React, { Component, PropTypes }  from 'react'
 import Article from './Article'
 import accordion from '../decorators/accordion'
+import { DateUtils } from 'react-day-picker'
 import { connect } from 'react-redux'
 
 class ArticleList extends Component {
@@ -35,8 +36,7 @@ class ArticleList extends Component {
 
 
     render() {
-        const { articles, isOpen, toggleOpenItem } = this.props
-
+        const { articles, isOpen, toggleOpenItem, dateRange } = this.props
         const articleItems = articles.map(article => (
             <li key = {article.id}>
                 <Article
@@ -55,6 +55,11 @@ class ArticleList extends Component {
     }
 }
 
-export default connect(state => ({
-    articles: state.articles
-}))(accordion(ArticleList))
+export default connect(
+    state => {
+        const { dateRange } = state.filters
+        const filteredArticles = state.articles.filter(
+            article => (!dateRange.from || !dateRange.to || DateUtils.isDayInRange(new Date(article.date), dateRange))
+        )
+        return { articles: filteredArticles }
+    })(accordion(ArticleList))

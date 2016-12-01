@@ -5,6 +5,7 @@ import Chart from './Chart'
 import DateRange from './DateRange'
 import Counter from './Counter'
 import 'react-select/dist/react-select.css'
+import { connect } from 'react-redux'
 
 class App extends Component {
 
@@ -13,10 +14,12 @@ class App extends Component {
     }
 
     render() {
-        const options = [].map(article => ({
+        console.log(this.props.articles)
+        const options = this.props.articles.map(article => ({
             label: article.title,
             value: article.id
         }))
+        console.log(options)
         return (
             <div>
                 <Counter />
@@ -31,4 +34,6 @@ class App extends Component {
     handleChange = selected => this.setState({ selected })
 }
 
-export default App
+export default connect(state => ({
+    articles: state.articles
+}))(App)
