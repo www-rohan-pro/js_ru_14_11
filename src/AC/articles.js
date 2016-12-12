@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE, LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL } from '../constants'
+import { DELETE_ARTICLE, LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, START, SUCCESS, FAIL } from '../constants'
 import jquery from 'jquery'
 
 export function deleteArticle(articleId) {
@@ -35,5 +35,26 @@ export function loadArticle(id) {
                     payload: { id, error}
                 }))
         }, 1000)
+    }
+}
+
+export function loadArticleComments(id) {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ARTICLE_COMMENTS + START,
+            payload: { id }
+        })
+
+        setTimeout(() => {
+            jquery.get(`/api/comment?article=${id}`)
+                .done(response => dispatch({
+                    type: LOAD_ARTICLE_COMMENTS + SUCCESS,
+                    payload: { id, comments: response }
+                }))
+                .fail(error => dispatch({
+                    type: LOAD_ARTICLE_COMMENTS + FAIL,
+                    payload: { id, error}
+                }))
+        }, 2000)
     }
 }
