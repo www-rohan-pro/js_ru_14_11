@@ -5,6 +5,8 @@ import ArticleRoot from './RouteHandlers/ArticleRoot'
 import Filters from './RouteHandlers/Filters'
 import Counter from './RouteHandlers/Counter'
 import ArticlePage from './RouteHandlers/ArticlePage'
+import CommentRoot from './RouteHandlers/CommentRoot'
+import CommentPage from './RouteHandlers/CommentPage'
 import NotFound from './RouteHandlers/NotFound'
 
 export default (
@@ -13,6 +15,9 @@ export default (
             <Route path = "/counter" component={Counter} />
             <Route path = "/articles" component={ArticleRoot}>
                 <Route path = ":id" component={ArticlePage} />
+            </Route>
+            <Route path = "/comments" component={CommentRoot}>
+                <Route path = ":page" component={CommentPage}/>
             </Route>
             <Route path = "/filters" component={Filters} />
             <Route path = "*" component={NotFound} />
